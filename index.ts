@@ -1,4 +1,4 @@
-import { Subject, combineLatest, merge, race, interval } from 'rxjs';
+import { Subject, combineLatest, merge, race, interval, zip } from 'rxjs';
 import {
   filter,
   distinct,
@@ -87,13 +87,18 @@ const trucks$ = new Subject<Truck>();
 // ).subscribe((val) => console.log(val));
 // #9 ---
 // step 1: only emit the results of whoever emits first, if cars$ emits first then the trucks$ should be ignored completely
+// race(cars$, trucks$).subscribe(vehicle => console.log(vehicle));
 
 // #10 ---
 // step 1: the first value of cars$ should be combined with the first value of trucks$
 // cars$ = [1,2,3,4,5]; trucks$ = ['a', 'b', 'c']; result = [ [1,'a'], [2,'b'], [3,'c'] ]
+// zip(cars$, trucks$).subscribe(([car, truck]) => console.log({ car, truck }));
 
 // #11 ---
 // step 1: log something every 2000ms (the value can be a static value)
+// interval(1000)
+//   .pipe(map((index) => index))
+//   .subscribe((val) => console.log(`value ${val}`));
 
 // DO NOT REMOVE
 cars$.next({ id: 'c1', make: 'BMW', model: 'M5', color: 'red' });
